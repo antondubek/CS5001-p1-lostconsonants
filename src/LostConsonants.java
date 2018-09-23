@@ -21,6 +21,12 @@ public class LostConsonants {
         }
         String input = args[1];
 
+        //Make the whole of the dictionary lowercase so that only lowercase words need to be tested
+        for(int j=0; j < lines.size(); j++){
+            String oldItem = lines.get(j);
+            lines.set(j, oldItem.toLowerCase());
+        }
+
         ////System.out.println("DEBUG: Input = "+input);
 
         int numOfAlternativesFound = 0;
@@ -57,7 +63,8 @@ public class LostConsonants {
                     words[x] = words[x].replaceAll("[^\\w]", ""); // remove punctuation
 
                     ////System.out.println("DEBUG: Searched word = "+ words[x]);
-                    if(lines.contains(words[x]) || lines.contains(words[x].toLowerCase()) || lines.contains(words[x].toUpperCase())){
+                    if(lines.contains(words[x].toLowerCase())){
+
                         ////System.out.println("DEBUG: Found word location = "+ lines.indexOf(words[x]));
                         counter++; // if the word is in the dictionary add one to the counter
                     } else {
