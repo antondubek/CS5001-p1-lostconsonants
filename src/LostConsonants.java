@@ -56,6 +56,10 @@ public class LostConsonants {
                 String[] words = newInput.split(" ");
                 //String[] words = newInput.split("\\\\s+|(?=[,.])");
 
+                ////for(String something : words){
+                ////    System.out.println("DEBUG: "+something);
+                ////}
+
                 // Check that each word is in the dictionary
                 int counter = 0;
                 for (int x = 0; x < words.length; x++){ // Look at each word and check if its in the dictionary
@@ -107,6 +111,8 @@ public class LostConsonants {
             case 'o':
                 return true;
             case 'u':
+                return true;
+            case ' ': // fixes merged words problem
                 return true;
             default:
                 return false;
