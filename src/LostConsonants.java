@@ -30,7 +30,7 @@ public class LostConsonants {
 
             StringBuilder sb = new StringBuilder(input);
 
-            ///System.out.println("##########################################"); // blank line
+            ////System.out.println("##########################################"); // blank line
 
             // Get the character at index
             char letter = input.charAt(i);
@@ -48,12 +48,16 @@ public class LostConsonants {
 
                 // Split the words
                 String[] words = newInput.split(" ");
+                //String[] words = newInput.split("\\\\s+|(?=[,.])");
 
                 // Check that each word is in the dictionary
                 int counter = 0;
                 for (int x = 0; x < words.length; x++){ // Look at each word and check if its in the dictionary
+
+                    words[x] = words[x].replaceAll("[^\\w]", ""); // remove punctuation
+
                     ////System.out.println("DEBUG: Searched word = "+ words[x]);
-                    if(lines.contains(words[x])){
+                    if(lines.contains(words[x]) || lines.contains(words[x].toLowerCase()) || lines.contains(words[x].toUpperCase())){
                         ////System.out.println("DEBUG: Found word location = "+ lines.indexOf(words[x]));
                         counter++; // if the word is in the dictionary add one to the counter
                     } else {
