@@ -1,6 +1,4 @@
-import java.io.IOException;
 import java.util.ArrayList;
-import java.lang.StringBuilder;
 
 public class LostConsonants {
 
@@ -17,7 +15,10 @@ public class LostConsonants {
         ArrayList<String> lines = FileUtil.readLines(args[0]);
 
         // If lines is empty, then display "Invalid dictionary, aborting." and exit!
-
+        if (lines.size() == 0) {
+            System.out.println("Invalid dictionary, aborting.");
+            System.exit(0);
+        }
         String input = args[1];
 
         ////System.out.println("DEBUG: Input = "+input);
