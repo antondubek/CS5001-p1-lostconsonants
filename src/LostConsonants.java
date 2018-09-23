@@ -81,7 +81,11 @@ public class LostConsonants {
 
         }
 
-        System.out.println("Found "+numOfAlternativesFound+" alternatives.");
+        if (numOfAlternativesFound == 0){
+            System.out.println("Could not find any alternatives.");
+        } else {
+            System.out.println("Found " + numOfAlternativesFound + " alternatives.");
+        }
 
     }
 
