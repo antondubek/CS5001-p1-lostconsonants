@@ -5,8 +5,8 @@ public class LostConsonants {
 
     public static void main(String[] args) {
 
-        if(args.length != 2) {
-            System.out.println("Expected 2 command line arguments, but got "+args.length+".");
+        if (args.length != 2) {
+            System.out.println("Expected 2 command line arguments, but got " + args.length + ".");
             System.out.println("Please provide the path to the dictionary file as the first argument and a sentence " +
                     "as the second argument.");
             System.exit(0);
@@ -22,7 +22,7 @@ public class LostConsonants {
         String input = args[1];
 
         //Make the whole of the dictionary lowercase so that only lowercase words need to be tested
-        for(int j=0; j < lines.size(); j++){
+        for (int j = 0; j < lines.size(); j++) {
             String oldItem = lines.get(j);
             lines.set(j, oldItem.toLowerCase());
         }
@@ -32,7 +32,7 @@ public class LostConsonants {
         int numOfAlternativesFound = 0;
 
 
-        for (int i = 0; i < input.length() - 1; i++){
+        for (int i = 0; i < input.length() - 1; i++) {
 
             StringBuilder sb = new StringBuilder(input);
 
@@ -42,7 +42,7 @@ public class LostConsonants {
             char letter = input.charAt(i);
 
             // Check if the character is a consonant
-            if (isLetterVowel(letter) == false){ // if it is a consonant
+            if (isLetterVowel(letter) == false) { // if it is a consonant
 
                 //take letter out
                 ////System.out.println("DEBUG: Character Chosen = "+letter);
@@ -62,12 +62,12 @@ public class LostConsonants {
 
                 // Check that each word is in the dictionary
                 int counter = 0;
-                for (int x = 0; x < words.length; x++){ // Look at each word and check if its in the dictionary
+                for (int x = 0; x < words.length; x++) { // Look at each word and check if its in the dictionary
 
                     words[x] = words[x].replaceAll("[^\\w]", ""); // remove punctuation
 
                     ////System.out.println("DEBUG: Searched word = "+ words[x]);
-                    if(lines.contains(words[x].toLowerCase())){
+                    if(lines.contains(words[x].toLowerCase())) {
 
                         ////System.out.println("DEBUG: Found word location = "+ lines.indexOf(words[x]));
                         counter++; // if the word is in the dictionary add one to the counter
@@ -79,7 +79,7 @@ public class LostConsonants {
                 // If all the words were validated
                 ////System.out.println("DEBUG: Counter = " + counter);
                 ////System.out.println("DEBUG: Length = "+words.length);
-                if (counter == words.length){
+                if (counter == words.length) {
                     System.out.println(newInput);
                     numOfAlternativesFound++; // Add one to the counter
                 }
@@ -100,8 +100,8 @@ public class LostConsonants {
 
     }
 
-    public static boolean isLetterVowel(char letter){
-        switch (Character.toLowerCase(letter)){
+    public static boolean isLetterVowel(char letter) {
+        switch (Character.toLowerCase(letter)) {
             case 'a':
                 return true;
             case 'e':
@@ -121,11 +121,11 @@ public class LostConsonants {
         }
     }
 
-    public static int isInDictionary(String word, ArrayList dictionary){
+    public static int isInDictionary(String word, ArrayList dictionary) {
 
         boolean exists = dictionary.contains(word);
 
-        if (exists){
+        if (exists) {
             return dictionary.indexOf(word);
         } else {
             return -1;
