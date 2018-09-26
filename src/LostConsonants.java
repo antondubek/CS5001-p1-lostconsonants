@@ -1,14 +1,28 @@
+/**
+ * A class which, when passed a phrase and a dictionary of words, will generate the "lost consonants" versions of the
+ * sentence. The definition of Lost Consonants can be seen on Wikipedia: https://en.wikipedia.org/wiki/Lost_Consonants
+ *
+ * @author CS5001 Student (acm35@st-andrews.ac.uk)
+ *
+ * @version 1
+ * @since 1
+ */
+
 import java.util.ArrayList;
 
 public class LostConsonants {
 
-
+    /**
+     * Prints the lost consonants of a word or phrase compared against a passed dictionary.
+     * @param args A file location of the dictionary, followed by a word or "phrase"
+     *
+     */
     public static void main(String[] args) {
 
         if (args.length != 2) {
             System.out.println("Expected 2 command line arguments, but got " + args.length + ".");
-            System.out.println("Please provide the path to the dictionary file as the first argument and a sentence " +
-                    "as the second argument.");
+            System.out.println("Please provide the path to the dictionary file as the first argument and a sentence "
+                    + "as the second argument.");
             System.exit(0);
         }
 
@@ -42,7 +56,7 @@ public class LostConsonants {
             char letter = input.charAt(i);
 
             // Check if the character is a consonant
-            if (isLetterVowel(letter) == false) { // if it is a consonant
+            if (isLetterConsonant(letter)) { // if it is a consonant
 
                 //take letter out
                 ////System.out.println("DEBUG: Character Chosen = "+letter);
@@ -67,7 +81,7 @@ public class LostConsonants {
                     words[x] = words[x].replaceAll("[^\\w]", ""); // remove punctuation
 
                     ////System.out.println("DEBUG: Searched word = "+ words[x]);
-                    if(lines.contains(words[x].toLowerCase())) {
+                    if (lines.contains(words[x].toLowerCase())) {
 
                         ////System.out.println("DEBUG: Found word location = "+ lines.indexOf(words[x]));
                         counter++; // if the word is in the dictionary add one to the counter
@@ -92,7 +106,7 @@ public class LostConsonants {
 
         }
 
-        if (numOfAlternativesFound == 0){
+        if (numOfAlternativesFound == 0) {
             System.out.println("Could not find any alternatives.");
         } else {
             System.out.println("Found " + numOfAlternativesFound + " alternatives.");
@@ -100,27 +114,34 @@ public class LostConsonants {
 
     }
 
-    public static boolean isLetterVowel(char letter) {
+    /**
+     * Checks whether a letter is a consonant
+     * @param letter Char containing a letter to be checked
+     * @return Returns True (Letter is a consonant) or False (Letter is not)
+     */
+    public static boolean isLetterConsonant(char letter) {
         switch (Character.toLowerCase(letter)) {
             case 'a':
-                return true;
-            case 'e':
-                return true;
-            case 'i':
-                return true;
-            case 'o':
-                return true;
-            case 'u':
-                return true;
-            case ' ': // fixes merged words problem
-                return true;
-            case ',': // fixes commas being lost
-                return true;
-            default:
                 return false;
+            case 'e':
+                return false;
+            case 'i':
+                return false;
+            case 'o':
+                return false;
+            case 'u':
+                return false;
+            case ' ': // fixes merged words problem
+                return false;
+            case ',': // fixes commas being lost
+                return false;
+            default:
+                return true;
         }
     }
 
+
+    /*
     public static int isInDictionary(String word, ArrayList dictionary) {
 
         boolean exists = dictionary.contains(word);
@@ -131,4 +152,5 @@ public class LostConsonants {
             return -1;
         }
     }
+    */
 }
