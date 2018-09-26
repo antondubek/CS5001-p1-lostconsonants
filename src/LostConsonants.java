@@ -46,7 +46,7 @@ public class LostConsonants {
         int numOfAlternativesFound = 0;
 
 
-        for (int i = 0; i < input.length() - 1; i++) {
+        for (int i = 0; i < input.length(); i++) {
 
             StringBuilder sb = new StringBuilder(input);
 
@@ -70,17 +70,22 @@ public class LostConsonants {
                 String[] words = newInput.split(" ");
                 //String[] words = newInput.split("\\\\s+|(?=[,.])");
 
-                ////for(String something : words){
-                 ////   System.out.println("DEBUG: "+something);
-                ////}
+                /*for(String something : words){
+                   System.out.println("DEBUG: "+something);
+                }*/
 
                 // Check that each word is in the dictionary
                 int counter = 0;
                 for (int x = 0; x < words.length; x++) { // Look at each word and check if its in the dictionary
 
-                    words[x] = words[x].replaceAll("[^\\w]", ""); // remove punctuation
+                    char lastCharacter = words[x].charAt(words[x].length() - 1);
+                    if (lastCharacter == '.' || lastCharacter == ',') {
+                        words[x] = words[x].replaceAll("[^\\w]", ""); // remove punctuation
+                    }
 
-                    ////System.out.println("DEBUG: Searched word = "+ words[x]);
+                    ////words[x] = words[x].replaceAll("[^\\w]", ""); // remove punctuation
+
+                    ////System.out.println("DEBUG: Searched word = "+ words[x].toLowerCase());
                     if (lines.contains(words[x].toLowerCase())) {
 
                         ////System.out.println("DEBUG: Found word location = "+ lines.indexOf(words[x]));
@@ -141,6 +146,10 @@ public class LostConsonants {
             case ' ': // fixes merged words problem
                 return false;
             case ',': // fixes commas being lost
+                return false;
+            case '.':
+                return false;
+            case '/':
                 return false;
             default:
                 return true;
