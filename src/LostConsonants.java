@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * A class which, when passed a phrase and a dictionary of words, will generate the "lost consonants" versions of the
  * sentence. The definition of Lost Consonants can be seen on Wikipedia: https://en.wikipedia.org/wiki/Lost_Consonants
@@ -7,8 +9,6 @@
  * @version 1
  * @since 1
  */
-
-import java.util.ArrayList;
 
 public class LostConsonants {
 
@@ -85,9 +85,14 @@ public class LostConsonants {
 
                         ////System.out.println("DEBUG: Found word location = "+ lines.indexOf(words[x]));
                         counter++; // if the word is in the dictionary add one to the counter
-                    } else {
+                    }
+
+
+                    /*
+                    else {
                         ////System.out.println("DEBUG: Word not found!");
                     }
+                    */
                 }
 
                 // If all the words were validated
@@ -98,11 +103,13 @@ public class LostConsonants {
                     numOfAlternativesFound++; // Add one to the counter
                 }
 
+            }
 
-            } else {
+
+            /*else {
                 //letter is a vowel
                 ////System.out.println("DEBUG: Letter is a vowel");
-            }
+            }*/
 
         }
 
@@ -115,7 +122,7 @@ public class LostConsonants {
     }
 
     /**
-     * Checks whether a letter is a consonant
+     * Checks whether a letter is a consonant.
      * @param letter Char containing a letter to be checked
      * @return Returns True (Letter is a consonant) or False (Letter is not)
      */
