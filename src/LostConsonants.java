@@ -41,16 +41,11 @@ public class LostConsonants {
             lines.set(j, oldItem.toLowerCase());
         }
 
-        ////System.out.println("DEBUG: Input = "+input);
-
         int numOfAlternativesFound = 0;
-
 
         for (int i = 0; i < input.length(); i++) {
 
             StringBuilder sb = new StringBuilder(input);
-
-            ////System.out.println("##########################################"); // blank line
 
             // Get the character at index
             char letter = input.charAt(i);
@@ -59,65 +54,44 @@ public class LostConsonants {
             if (isLetterConsonant(letter)) { // if it is a consonant
 
                 //take letter out
-                ////System.out.println("DEBUG: Character Chosen = "+letter);
                 sb.deleteCharAt(i);
 
                 // Write the new string without the letter
                 String newInput = sb.toString();
-                ////System.out.println("DEBUG: New String = " +newInput);
 
                 // Split the words
                 String[] words = newInput.split(" ");
-                //String[] words = newInput.split("\\\\s+|(?=[,.])");
-
-                /*for(String something : words){
-                   System.out.println("DEBUG: "+something);
-                }*/
 
                 // Check that each word is in the dictionary
                 int counter = 0;
+
                 for (int x = 0; x < words.length; x++) { // Look at each word and check if its in the dictionary
 
-                    char lastCharacter = words[x].charAt(words[x].length() - 1);
+                    char lastCharacter = words[x].charAt(words[x].length() - 1); //Get the last character
+
+                    //Check if the last character is a fullstop or comma, if so remove punctuation
                     if (lastCharacter == '.' || lastCharacter == ',') {
                         words[x] = words[x].replaceAll("[^\\w]", ""); // remove punctuation
                     }
 
-                    ////words[x] = words[x].replaceAll("[^\\w]", ""); // remove punctuation
-
-                    ////System.out.println("DEBUG: Searched word = "+ words[x].toLowerCase());
+                    //If the word is accepted, increment the helper counter
                     if (lines.contains(words[x].toLowerCase())) {
-
-                        ////System.out.println("DEBUG: Found word location = "+ lines.indexOf(words[x]));
                         counter++; // if the word is in the dictionary add one to the counter
                     }
 
-
-                    /*
-                    else {
-                        ////System.out.println("DEBUG: Word not found!");
-                    }
-                    */
                 }
 
-                // If all the words were validated
-                ////System.out.println("DEBUG: Counter = " + counter);
-                ////System.out.println("DEBUG: Length = "+words.length);
+                // If all the words were validated and helper counter == all the words passed
                 if (counter == words.length) {
-                    System.out.println(newInput);
-                    numOfAlternativesFound++; // Add one to the counter
+                    System.out.println(newInput); //Print out the line
+                    numOfAlternativesFound++; // Add one to the alternatives found counter
                 }
 
             }
 
-
-            /*else {
-                //letter is a vowel
-                ////System.out.println("DEBUG: Letter is a vowel");
-            }*/
-
         }
 
+        //If no alternatives found print phrase, else tell how many have been found
         if (numOfAlternativesFound == 0) {
             System.out.println("Could not find any alternatives.");
         } else {
@@ -155,18 +129,4 @@ public class LostConsonants {
                 return true;
         }
     }
-
-
-    /*
-    public static int isInDictionary(String word, ArrayList dictionary) {
-
-        boolean exists = dictionary.contains(word);
-
-        if (exists) {
-            return dictionary.indexOf(word);
-        } else {
-            return -1;
-        }
-    }
-    */
 }
