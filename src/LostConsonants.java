@@ -97,13 +97,15 @@ public class LostConsonants {
                 return false;
             case 'u':
                 return false;
-            case ' ': // fixes merged words problem
+            case ' ':
                 return false;
-            case ',': // fixes commas being lost
+            case ',':
                 return false;
             case '.':
                 return false;
             case '/':
+                return false;
+            case '?':
                 return false;
             default:
                 return true;
@@ -111,11 +113,11 @@ public class LostConsonants {
     }
 
     /**
-     * Takes the dictionary array lines and makes it all lowercase
+     * Takes the dictionary array lines and makes it all lowercase.
      * @param lines Arraylist containing words of a dictionary
      * @return Returns the dictionary with all words lowercase
      */
-    public static ArrayList<String> parseDictionary(ArrayList<String> lines){
+    public static ArrayList<String> parseDictionary(ArrayList<String> lines) {
 
         for (int j = 0; j < lines.size(); j++) {
             String oldItem = lines.get(j);
@@ -125,7 +127,6 @@ public class LostConsonants {
         return lines;
     }
 
-
     /**
      * Given a list of words to test against a dictionary, the method splits the words, removes irrelevant punctuation
      * and tests whether the word exists within the dictionary.
@@ -133,29 +134,28 @@ public class LostConsonants {
      * @param dictionary Arraylist of strings forming a dictionary to test against
      * @return Returns True if ALL of the words are found in the dictionary, otherwise returns false.
      */
-    public static boolean areWordsInDic(String[] words, ArrayList<String> dictionary){
-        // Check that each word is in the dictionary
+    public static boolean areWordsInDic(String[] words, ArrayList<String> dictionary) {
+        // word is in the dictionary counter
         int counter = 0;
 
-        for (int x = 0; x < words.length; x++) { // Look at each word and check if its in the dictionary
+        // Iterate through all the words in the array
+        for (int x = 0; x < words.length; x++) {
 
-            char lastCharacter = words[x].charAt(words[x].length() - 1); //Get the last character
+            //Get the last character of word
+            char lastCharacter = words[x].charAt(words[x].length() - 1);
 
-            //Check if the last character is a fullstop or comma, if so remove punctuation
-            if (lastCharacter == '.' || lastCharacter == ',') {
+            //Check if the last character is a '.' ',' '/' '?' '!', if so remove punctuation
+            if (".,/?!".indexOf(lastCharacter) != -1) {
                 words[x] = words[x].replaceAll("[^\\w]", ""); // remove punctuation
             }
 
-            //If the word is accepted, increment the helper counter
+            //If the word is in the dictionary, increment the helper counter
             if (dictionary.contains(words[x].toLowerCase())) {
-                counter++; // if the word is in the dictionary add one to the counter
+                counter++;
             }
         }
 
-        if (counter == words.length) {
-            return true;
-        } else {
-            return false;
-        }
+        // If all the words are in the dictionary return true, else false!
+        return counter == words.length;
     }
 }
