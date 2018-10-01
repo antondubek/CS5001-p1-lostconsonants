@@ -36,10 +36,8 @@ public class LostConsonants {
         String input = args[1];
 
         //Make the whole of the dictionary lowercase so that only lowercase words need to be tested
-        for (int j = 0; j < lines.size(); j++) {
-            String oldItem = lines.get(j);
-            lines.set(j, oldItem.toLowerCase());
-        }
+        ArrayList<String> dictionary = parseDictionary(lines);
+
 
         int numOfAlternativesFound = 0;
 
@@ -62,27 +60,8 @@ public class LostConsonants {
                 // Split the words
                 String[] words = newInput.split(" ");
 
-                // Check that each word is in the dictionary
-                int counter = 0;
-
-                for (int x = 0; x < words.length; x++) { // Look at each word and check if its in the dictionary
-
-                    char lastCharacter = words[x].charAt(words[x].length() - 1); //Get the last character
-
-                    //Check if the last character is a fullstop or comma, if so remove punctuation
-                    if (lastCharacter == '.' || lastCharacter == ',') {
-                        words[x] = words[x].replaceAll("[^\\w]", ""); // remove punctuation
-                    }
-
-                    //If the word is accepted, increment the helper counter
-                    if (lines.contains(words[x].toLowerCase())) {
-                        counter++; // if the word is in the dictionary add one to the counter
-                    }
-
-                }
-
                 // If all the words were validated and helper counter == all the words passed
-                if (counter == words.length) {
+                if (areWordsInDic(words, dictionary)) {
                     System.out.println(newInput); //Print out the line
                     numOfAlternativesFound++; // Add one to the alternatives found counter
                 }
@@ -127,6 +106,55 @@ public class LostConsonants {
                 return false;
             default:
                 return true;
+        }
+    }
+
+    /**
+     * Takes the dictionary array lines and makes it all lowercase
+     * @param lines Arraylist containing words of a dictionary
+     * @return Returns the dictionary with all words lowercase
+     */
+    public static ArrayList<String> parseDictionary(ArrayList<String> lines){
+
+        for (int j = 0; j < lines.size(); j++) {
+            String oldItem = lines.get(j);
+            lines.set(j, oldItem.toLowerCase());
+        }
+
+        return lines;
+    }
+
+
+    /**
+     * Given a list of words to test against a dictionary, the method splits the words, removes irrelevant punctuation
+     * and tests whether the word exists within the dictionary.
+     * @param words String array of words to check against the dictionary
+     * @param dictionary Arraylist of strings forming a dictionary to test against
+     * @return Returns True if ALL of the words are found in the dictionary, otherwise returns false.
+     */
+    public static boolean areWordsInDic(String[] words, ArrayList<String> dictionary){
+        // Check that each word is in the dictionary
+        int counter = 0;
+
+        for (int x = 0; x < words.length; x++) { // Look at each word and check if its in the dictionary
+
+            char lastCharacter = words[x].charAt(words[x].length() - 1); //Get the last character
+
+            //Check if the last character is a fullstop or comma, if so remove punctuation
+            if (lastCharacter == '.' || lastCharacter == ',') {
+                words[x] = words[x].replaceAll("[^\\w]", ""); // remove punctuation
+            }
+
+            //If the word is accepted, increment the helper counter
+            if (dictionary.contains(words[x].toLowerCase())) {
+                counter++; // if the word is in the dictionary add one to the counter
+            }
+        }
+
+        if (counter == words.length) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
