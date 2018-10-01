@@ -19,6 +19,7 @@ public class LostConsonants {
      */
     public static void main(String[] args) {
 
+        // Argument check
         if (args.length != 2) {
             System.out.println("Expected 2 command line arguments, but got " + args.length + ".");
             System.out.println("Please provide the path to the dictionary file as the first argument and a sentence "
@@ -26,30 +27,33 @@ public class LostConsonants {
             System.exit(0);
         }
 
+        // Creation of dictionary Arraylist from source file
         ArrayList<String> lines = FileUtil.readLines(args[0]);
 
-        // If lines is empty, then display "Invalid dictionary, aborting." and exit!
+        // Check if the dictionary is empty, if so, warn and exit
         if (lines.size() == 0) {
             System.out.println("Invalid dictionary, aborting.");
             System.exit(0);
         }
+
+        // Save the inputted string
         String input = args[1];
 
-        //Make the whole of the dictionary lowercase so that only lowercase words need to be tested
+        //Make the whole of the dictionary lowercase so that words can be tested lowercase
         ArrayList<String> dictionary = parseDictionary(lines);
-
 
         int numOfAlternativesFound = 0;
 
+        // Iterate through each character of the input string
         for (int i = 0; i < input.length(); i++) {
 
             StringBuilder sb = new StringBuilder(input);
 
-            // Get the character at index
+            // Get the character at index i
             char letter = input.charAt(i);
 
             // Check if the character is a consonant
-            if (isLetterConsonant(letter)) { // if it is a consonant
+            if (isLetterConsonant(letter)) {
 
                 //take letter out
                 sb.deleteCharAt(i);
@@ -60,14 +64,12 @@ public class LostConsonants {
                 // Split the words
                 String[] words = newInput.split(" ");
 
-                // If all the words were validated and helper counter == all the words passed
+                // If all the words were validated in the dictionary
                 if (areWordsInDic(words, dictionary)) {
                     System.out.println(newInput); //Print out the line
                     numOfAlternativesFound++; // Add one to the alternatives found counter
                 }
-
             }
-
         }
 
         //If no alternatives found print phrase, else tell how many have been found
@@ -76,7 +78,6 @@ public class LostConsonants {
         } else {
             System.out.println("Found " + numOfAlternativesFound + " alternatives.");
         }
-
     }
 
     /**
